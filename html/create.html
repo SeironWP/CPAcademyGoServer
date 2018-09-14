@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>Create - Toastytrade</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="js/accountInfoPanel.js"></script>
+    <script src="js/create.js"></script>
+  </head>
+  <body>
+  <div class="container-fluid site-main">
+  {{ template "header" }}
+  {{ template "accountInfoPanel" }}
+    <div id="createVueapp">
+      <div class="mainBlock">
+        <div class="well well-sm row">
+          <h1 class="text-center">Create Sell Offer</h1>
+          <div class="row-fluid">
+            <div class="col-md-6 col-md-offset-3">
+              <form id="crateForm"> <!-- payerForm -->
+                  <div class="form-group">
+                    <h3>Amount and Fees</h3>
+                    <table class="table table-striped">
+                        <td><label id="amountLabel" class="control-label" for="amountInput">Selling</label></td>
+                        <td>
+                          <div class="input-group">
+                            <input id="amountInput" name="amountInput" v-model.number="selling" type="number" min="0" step="any" class="form-control"/>
+                            <div class="input-group-addon">ETH</div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><label id="feeLabel" class="control-label" for="feeInput">Summon Fee</label></td>
+                        <td>
+                          <div class="input-group">
+                            <input id="feeInput" name="feeInput" v-model.number="summonFee" class="form-control" disabled/>
+                            <div class="input-group-addon">ETH</div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><label id="notifyFeeLabel" class="control-label" for="notifyFeeInput">Notify Fee</label></td>
+                        <td>
+                          <div class="input-group">
+                            <input id="notifyFeeInput" name="notifyFeeInput" v-model.number="notifyFee" class="form-control" disabled/>
+                            <div class="input-group-addon">ETH</div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tfoot>
+                      <tr>
+                        <td><h3 style="margin-top: 5px;"><label id="totalLabel" for="totalInput">Total</label></h3></td>
+                        <td>
+                        <div class="input-group">
+                          <input id="totalInput" name="totalInput" class="form-control" disabled v-model="total"/>
+                          <div class="input-group-addon">ETH</div>
+                        </div>
+                      </td>
+                      </tr>
+                      </tfoot>
+                    </table>
+
+                    <h3>Fiat Deposit Details</h3>
+                    <table class="table table-striped">
+                      <tr>
+                        <td><label id="notifyFeeLabel" class="control-label" for="notifyFeeInput">Banks:</label></td>
+                        <td>
+                          <textarea class="form-control" name="banks" rows="5" cols="20" wrap="hard">
+                            e.g. Bank XY , DC
+                          </textarea>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><label id="notifyFeeLabel" class="control-label" for="notifyFeeInput">Other:</label></td>
+                        <td>
+                          <textarea class="form-control" name="other" rows="5" cols="20" wrap="hard">
+                            e.g. Ref Number 234
+                          </textarea>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="form-group">
+                    <input type="button" class="btn btn-primary" onclick="newBPFromForm()" value="Create Sell Offer">
+                  </div>
+              </form>
+            </div>
+          </div>
+
+            <div class="row">
+              <div class="col-md-8 col-md-offset-2">
+                <div id="outputDiv"></div>
+
+                <br/>
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Transactions</h3>
+                  </div>
+                  <div id="createResultList">
+                    <div class="well">
+                      <div v-for="createResult in createResults">
+                        <create-result-row :result="createResult"></create-result-row><br>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

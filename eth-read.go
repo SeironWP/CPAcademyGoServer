@@ -180,7 +180,7 @@ func ethReadLoop(fromBlock uint64) {
 
 				createdUpdateChan <- createdUpdate
 
-				err := notifyParties(addr, event)
+				err = notifyParties(addr, event)
 				if err != nil {
 					log.Panic(err)
 				}

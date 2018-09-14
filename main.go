@@ -30,6 +30,14 @@ func register(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func create(w http.ResponseWriter, r *http.Request) {
+	slog.DebugPrint("Path requested: ", r.URL.String())
+	err := tpl.ExecuteTemplate(w, "create.html", nil)
+	if err != nil {
+		log.Panic("Template error on create: ", err)
+	}
+}
+
 func doRegister(w http.ResponseWriter, r *http.Request) {
 	slog.DebugPrint("doRegister called")
 
@@ -76,10 +84,11 @@ func main() {
 
 	initEthStuff()
 	go dbRequestsHandler()
-	ethReadLoop(3886180)
+	//ethReadLoop(3886180)
 
 	http.HandleFunc("/", index)
 	http.HandleFunc("/register", register)
+	http.HandleFunc("/create", create)
 	http.HandleFunc("/doRegister", doRegister)
 	http.HandleFunc("/getUserEmail", getUserEmail)
 	http.HandleFunc("/test", test)
