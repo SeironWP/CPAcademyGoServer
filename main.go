@@ -84,7 +84,7 @@ func main() {
 
 	initEthStuff()
 	go dbRequestsHandler()
-	//ethReadLoop(3886180)
+	go ethReadLoop(3886180)
 
 	http.HandleFunc("/", index)
 	http.HandleFunc("/register", register)

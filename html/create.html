@@ -18,8 +18,15 @@
     <div id="createVueapp">
       <div class="mainBlock">
         <div class="well well-sm row">
-          <h1 class="text-center">Create Sell Offer</h1>
-          <div class="row-fluid">
+                      <h1 class="text-center">Create Sell Offer</h1>
+          <div id="onlyLoggedIn" hidden='true' class="col-sm-12">
+            <div style='color:red'>
+              You can only create a Sell Offer if you are logged in.<br>
+            </div>
+          </div>
+
+          <div id="createSellOfferForm" class="row-fluid">
+
             <div class="col-md-6 col-md-offset-3">
               <form id="crateForm"> <!-- payerForm -->
                   <div class="form-group">
@@ -69,47 +76,36 @@
                       <tr>
                         <td><label id="notifyFeeLabel" class="control-label" for="notifyFeeInput">Banks:</label></td>
                         <td>
-                          <textarea class="form-control" name="banks" rows="5" cols="20" wrap="hard">
-                            e.g. Bank XY , DC
+                          <textarea class="form-control" name="banks" rows="5" cols="20" wrap="hard" v-model="banks" placeholder="e.g. Bank XY , DC">
+
                           </textarea>
                         </td>
                       </tr>
                       <tr>
                         <td><label id="notifyFeeLabel" class="control-label" for="notifyFeeInput">Other:</label></td>
                         <td>
-                          <textarea class="form-control" name="other" rows="5" cols="20" wrap="hard">
-                            e.g. Ref Number 234
+                          <textarea class="form-control" name="other" rows="5" cols="20" wrap="hard" v-model="other" placeholder="e.g. Ref Number 234">
+
                           </textarea>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><label id="depositTimeLabel" class="control-label" for="depositTimeInput">Deposit Time:</label></td>
+                        <td>
+                          <div class="input-group">
+                            <input id="depositTimeInput" name="depositTimeInput" class="form-control" v-model="depositTime" type="number" min="1" step="1"/>
+                            <div class="input-group-addon">Days</div>
+                          </div>
                         </td>
                       </tr>
                     </table>
                   </div>
                   <div class="form-group">
-                    <input type="button" class="btn btn-primary" onclick="newBPFromForm()" value="Create Sell Offer">
+                    <input type="button" class="btn btn-primary" onclick="newTTFromForm()" value="Create Sell Offer">
                   </div>
               </form>
             </div>
           </div>
-
-            <div class="row">
-              <div class="col-md-8 col-md-offset-2">
-                <div id="outputDiv"></div>
-
-                <br/>
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Transactions</h3>
-                  </div>
-                  <div id="createResultList">
-                    <div class="well">
-                      <div v-for="createResult in createResults">
-                        <create-result-row :result="createResult"></create-result-row><br>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
