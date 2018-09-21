@@ -1,5 +1,7 @@
 window.addEventListener('load', function() {
 
+  prepareWeb3();
+
   window.createVueapp = new Vue({
     delimiters: ['${', '}'],
     el: '#createVueapp',
@@ -44,11 +46,12 @@ function callNewTT(valueInEth, sellerAddress, depositTimeInDays, details){
   var valueInWei = web3.toWei(valueInEth, 'ether');
   var deposoiteTimeInSeconds = depositTimeInDays*24*60*60;
 
-  ToastytradeFactory.contractInstance.newTT(sellerAddress, deposoiteTimeInSeconds, details,
+  TTFactory.contractInstance.newToastytrade(sellerAddress, deposoiteTimeInSeconds, details,
     {'value': valueInWei,'gas': 1500000}, handleNewTTResult);
 }
 
 function newTTFromForm() {
+
 
   var sellerAddress = window.accountInfoPanelVueapp.ethereumAddress;
 
