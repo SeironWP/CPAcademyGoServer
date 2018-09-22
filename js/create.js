@@ -30,7 +30,7 @@ window.addEventListener('load', function() {
   //if (web3.eth.accounts.length == 0 || window.accountInfoPanelVueapp.email == 'loading...') {
   if (web3.eth.accounts.length == 0) {
     $("#onlyLoggedIn").show();
-    $("#createSellOfferForm").hide();
+    $("#createForm").hide();
   }
 
 });
@@ -51,7 +51,6 @@ function callNewTT(valueInEth, sellerAddress, depositTimeInDays, details){
 }
 
 function newTTFromForm() {
-
 
   var sellerAddress = window.accountInfoPanelVueapp.ethereumAddress;
 

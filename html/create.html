@@ -14,101 +14,91 @@
     <script src="js/contractInfo.js"></script>
   </head>
   <body>
-  <div class="container-fluid site-main">
-  {{ template "header" }}
-  {{ template "accountInfoPanel" }}
-    <div id="createVueapp">
-      <div class="mainBlock">
-        <div class="well well-sm row">
-                      <h1 class="text-center">Create Sell Offer</h1>
-          <div id="onlyLoggedIn" hidden='true' class="col-sm-12">
-            <div style='color:red'>
-              You can only create a Sell Offer if you are logged in.<br>
+    <div class="container-fluid site-main">
+    {{ template "header" }}
+    {{ template "accountInfoPanel" }}
+      <div id="createVueapp" class="mainBlock well well-sm row">
+
+        <h1 class="text-center">Create Sell Offer</h1>
+
+        <div id="onlyLoggedIn" hidden='true' class="col-sm-12">
+          <div style='color:red'>
+            You can only create a Sell Offer if you are logged in.<br>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-md-offset-3">
+          <form id="crateForm">
+            <div class="form-group">
+              <h3>Amount and Fees</h3>
+              <table class="table table-striped">
+                <tr>
+                  <td><label id="amountLabel" class="control-label" for="amountInput">Selling</label></td>
+                  <td>
+                    <div class="input-group">
+                      <input id="amountInput" name="amountInput" v-model.number="selling" type="number" min="0" step="any" class="form-control"/>
+                      <div class="input-group-addon">ETH</div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label id="feeLabel" class="control-label" for="feeInput">Summon Fee</label></td>
+                  <td>
+                    <div class="input-group">
+                      <input id="feeInput" name="feeInput" v-model.number="summonFee" class="form-control" disabled/>
+                      <div class="input-group-addon">ETH</div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label id="notifyFeeLabel" class="control-label" for="notifyFeeInput">Notify Fee</label></td>
+                  <td>
+                    <div class="input-group">
+                      <input id="notifyFeeInput" name="notifyFeeInput" v-model.number="notifyFee" class="form-control" disabled/>
+                      <div class="input-group-addon">ETH</div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><h3 class="customh3"><label id="totalLabel" for="totalInput">Total</label></h3></td>
+                  <td>
+                    <div class="input-group">
+                      <input id="totalInput" name="totalInput" class="form-control" disabled v-model="total"/>
+                      <div class="input-group-addon">ETH</div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <h3>Fiat Deposit Details</h3>
+              <table class="table table-striped">
+                <tr>
+                  <td><label id="banksLabel" class="control-label" for="banksTextarea">Banks:</label></td>
+                  <td>
+                    <textarea class="form-control" name="banksTextarea" rows="5" cols="20" wrap="hard" v-model="banks" placeholder="e.g. Bank XY , DC"></textarea>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><label id="otherLabel" class="control-label" for="otherTextarea">Other:</label></td>
+                  <td>
+                    <textarea class="form-control" name="otherTextarea" rows="5" cols="20" wrap="hard" v-model="other" placeholder="e.g. Ref Number 234"></textarea>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><label id="depositTimeLabel" class="control-label" for="depositTimeInput">Deposit Time:</label></td>
+                  <td>
+                    <div class="input-group">
+                      <input id="depositTimeInput" name="depositTimeInput" class="form-control" v-model="depositTime" type="number" min="1" step="1"/>
+                      <div class="input-group-addon">Days</div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <input type="button" class="btn btn-primary" onclick="newTTFromForm()" value="Create Sell Offer">
             </div>
-          </div>
-
-          <div id="createSellOfferForm" class="row-fluid">
-
-            <div class="col-md-6 col-md-offset-3">
-              <form id="crateForm"> <!-- payerForm -->
-                  <div class="form-group">
-                    <h3>Amount and Fees</h3>
-                    <table class="table table-striped">
-                        <td><label id="amountLabel" class="control-label" for="amountInput">Selling</label></td>
-                        <td>
-                          <div class="input-group">
-                            <input id="amountInput" name="amountInput" v-model.number="selling" type="number" min="0" step="any" class="form-control"/>
-                            <div class="input-group-addon">ETH</div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><label id="feeLabel" class="control-label" for="feeInput">Summon Fee</label></td>
-                        <td>
-                          <div class="input-group">
-                            <input id="feeInput" name="feeInput" v-model.number="summonFee" class="form-control" disabled/>
-                            <div class="input-group-addon">ETH</div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><label id="notifyFeeLabel" class="control-label" for="notifyFeeInput">Notify Fee</label></td>
-                        <td>
-                          <div class="input-group">
-                            <input id="notifyFeeInput" name="notifyFeeInput" v-model.number="notifyFee" class="form-control" disabled/>
-                            <div class="input-group-addon">ETH</div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tfoot>
-                      <tr>
-                        <td><h3 style="margin-top: 5px;"><label id="totalLabel" for="totalInput">Total</label></h3></td>
-                        <td>
-                        <div class="input-group">
-                          <input id="totalInput" name="totalInput" class="form-control" disabled v-model="total"/>
-                          <div class="input-group-addon">ETH</div>
-                        </div>
-                      </td>
-                      </tr>
-                      </tfoot>
-                    </table>
-
-                    <h3>Fiat Deposit Details</h3>
-                    <table class="table table-striped">
-                      <tr>
-                        <td><label id="notifyFeeLabel" class="control-label" for="notifyFeeInput">Banks:</label></td>
-                        <td>
-                          <textarea class="form-control" name="banks" rows="5" cols="20" wrap="hard" v-model="banks" placeholder="e.g. Bank XY , DC">
-
-                          </textarea>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><label id="notifyFeeLabel" class="control-label" for="notifyFeeInput">Other:</label></td>
-                        <td>
-                          <textarea class="form-control" name="other" rows="5" cols="20" wrap="hard" v-model="other" placeholder="e.g. Ref Number 234">
-
-                          </textarea>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><label id="depositTimeLabel" class="control-label" for="depositTimeInput">Deposit Time:</label></td>
-                        <td>
-                          <div class="input-group">
-                            <input id="depositTimeInput" name="depositTimeInput" class="form-control" v-model="depositTime" type="number" min="1" step="1"/>
-                            <div class="input-group-addon">Days</div>
-                          </div>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                  <div class="form-group">
-                    <input type="button" class="btn btn-primary" onclick="newTTFromForm()" value="Create Sell Offer">
-                  </div>
-              </form>
-            </div>
-          </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
